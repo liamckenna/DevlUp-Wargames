@@ -6,8 +6,8 @@ public class firstPersonCamera : MonoBehaviour
 {
     
 
-    public float xSens = 400;
-    public float ySens = 400;
+    public float xSens = 600;
+    public float ySens = 600;
 
     public Transform orientation;
 
