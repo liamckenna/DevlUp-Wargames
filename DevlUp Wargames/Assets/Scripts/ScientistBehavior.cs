@@ -5,6 +5,7 @@ using UnityEngine;
 public class ScientistBehavior : MonoBehaviour
 {
     [SerializeField] public float speed;
+    public bool paused = false;
     [SerializeField] Vector3 startingPosition;
     [SerializeField] Quaternion startingRotation;
     [SerializeField] public direction scientistDirection = direction.North;
@@ -28,7 +29,8 @@ public class ScientistBehavior : MonoBehaviour
     }
 
     void FixedUpdate() {
-        if (scientistDirection == direction.North) {
+        if (!paused) {
+            if (scientistDirection == direction.North) {
             this.transform.localPosition = new Vector3(this.transform.localPosition.x + (speed / 400), this.transform.localPosition.y, this.transform.localPosition.z);
         } else if (scientistDirection == direction.East) {
             this.transform.localPosition = new Vector3(this.transform.localPosition.x, this.transform.localPosition.y, this.transform.localPosition.z - (speed / 400));
@@ -37,5 +39,7 @@ public class ScientistBehavior : MonoBehaviour
         } else if (scientistDirection == direction.West) {
             this.transform.localPosition = new Vector3(this.transform.localPosition.x, this.transform.localPosition.y, this.transform.localPosition.z + (speed / 400));
         } 
+        }
+        
     }
 }

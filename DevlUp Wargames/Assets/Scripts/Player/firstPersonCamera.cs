@@ -8,6 +8,8 @@ public class firstPersonCamera : MonoBehaviour
 
     public float xSens = 600;
     public float ySens = 600;
+    
+    [SerializeField] playerMovement pm;
 
     public Transform orientation;
 
@@ -49,10 +51,12 @@ public class firstPersonCamera : MonoBehaviour
         holder.rotation = Quaternion.Euler(xRotation, yRotation, 0);
             //Debug.Log(holder.rotation);
         orientation.rotation = Quaternion.Euler(0, yRotation, 0);
+
     }
 
     public IEnumerator IntroAnim() {
         canLook = false;
+        pm.canMove = false;
         yield return new WaitForSeconds(0.1f);
         xRotation = -50;
         yRotation = -90;
@@ -61,6 +65,7 @@ public class firstPersonCamera : MonoBehaviour
         yield return new WaitForSeconds(3f);
         introAnim = false;
         canLook = true;
+        pm.canMove = true;
         t = 0;
         
 

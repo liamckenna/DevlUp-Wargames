@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ScientistHitbox : MonoBehaviour
 {
+
+    [SerializeField] GameManager gm;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,5 +16,11 @@ public class ScientistHitbox : MonoBehaviour
     void Update()
     {
         
+    }
+
+    void OnTriggerEnter(Collider other) {
+        if (other.gameObject.tag == "Player") {
+            gm.EndGame();
+        }
     }
 }
