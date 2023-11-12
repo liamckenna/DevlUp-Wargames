@@ -5,16 +5,21 @@ using System.Diagnostics;
 using System.Security.Cryptography;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
 public class GameManager : MonoBehaviour
 {
 
+    public bool gameOver = false;
+
     public int stage = 1;
     public int hallNumber = 1;
     public int scientistHallNumber = 0;
     [SerializeField] GameObject player;
+    [SerializeField] firstPersonCamera fpc;
     [SerializeField] GameObject scientists;
+    [SerializeField] AudioSource audioSource;
     [SerializeField] GameObject startingHall1;
     [SerializeField] GameObject startingHall2;
     [SerializeField] GameObject startingHall3;
@@ -44,6 +49,7 @@ public class GameManager : MonoBehaviour
     
     void Start()
     {
+        gameOver = false;
         pm = player.GetComponent<playerMovement>();
         ph = player.GetComponent<playerHealth>();
         hallNumber = 1;
@@ -65,7 +71,11 @@ public class GameManager : MonoBehaviour
     
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.Escape)) {
+            if (gameOver) {
+                RestartGame();
+            }
+        }
     }
 
     public void GenerateNewHall() {
@@ -373,11 +383,22 @@ public class GameManager : MonoBehaviour
         pm.walkSpeed += 2;
         pm.sprintSpeed += 2;
         pm.crouchSpeed += 2;
-        scientists.GetComponent<ScientistBehavior>().speed += 25;
+        scientists.GetComponent<ScientistBehavior>().speed += 15;
     }
 
     public void EndGame() {
+        gameOver = true;
         UnityEngine.Debug.Log("End Game");
+        audioSource.Pause();
+        pm.canMove = false;
+        scientists.GetComponent<ScientistBehavior>().paused = true;
+        fpc.canLook = false;
+        //Display Game over
+    }
+
+    public void RestartGame() {
+        Scene scene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(scene.name);
     }
 
     public void ScientistUpdate() {
@@ -428,4 +449,6 @@ public class GameManager : MonoBehaviour
             UnityEngine.Debug.Log("Turning Right, new Scientist direction is: " + sb.scientistDirection);
         }
     }
+
+
 }

@@ -5,6 +5,7 @@ using UnityEngine;
 public class playerMovement : MonoBehaviour
 {
     public float walkSpeed;
+    public bool canMove;
     public bool sprinting;
     public float sprintSpeed;
     public bool canSprint;
@@ -48,6 +49,7 @@ public class playerMovement : MonoBehaviour
     public float slidingFriction;
     void Start()
     {    
+        canMove = true;
         defaultThrust = thrust;
         grounded = true;
         rb = GetComponent<Rigidbody>();
@@ -82,10 +84,13 @@ public class playerMovement : MonoBehaviour
     }
 
     void FixedUpdate() {
-        PlayerMove();
-        VelocityLimiter();
-        LedgeGrabCheck();
-        Gravity();
+        if (canMove) {
+            PlayerMove();
+            VelocityLimiter();
+            LedgeGrabCheck();
+            Gravity();
+        }
+        
         //if (sliding && crouching) rb.AddForce(slideDirection * slideSpeed * 10f, ForceMode.Force);
         //slideSpeed -= slideDeceleration;
         
