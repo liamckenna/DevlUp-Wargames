@@ -220,7 +220,7 @@ public class GameManager : MonoBehaviour
     public void GenerateObstacles() {
 
         for (int i = 0; i < 4; i++) {
-            int obstacleCheck = UnityEngine.Random.Range(0,2);
+            int obstacleCheck = UnityEngine.Random.Range(0,3);
             if (obstacleCheck > 0) {
                 int obstacleID = UnityEngine.Random.Range(0,5);
                 if (obstacleID == 4) {
