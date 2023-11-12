@@ -4,18 +4,18 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class scoredisplay : MonoBehaviour
+public class currentscore : MonoBehaviour
 {
+    [SerializeField] Game Manager;
     // Start is called before the first frame update
     void Start()
     {
-        TMP_Text tmp = score.GetComponent<TMP_Text>();
-        tmp.text = "You Survived " + GameManager.score + " Hallways...";
+        
     }
 
     // Update is called once per frame
-    //void Update()
-    //{
-        
-    //}
+    void Update()
+    {
+        tmp.text = "Hallways Passed: " + score;
+    }
 }
