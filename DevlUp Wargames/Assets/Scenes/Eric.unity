@@ -2163,8 +2163,8 @@ MonoBehaviour:
   startingHall4: {fileID: 1360671208}
   startingHall5: {fileID: 756168698}
   straightHall: {fileID: 3975166694384938399, guid: 6c527d212b8ec3a43beb124865f22919, type: 3}
-  leftTurnHall: {fileID: 5894065007555527460, guid: ed57608d092aeb248a92e4fde53ee6d4, type: 3}
-  rightTurnHall: {fileID: 5697796682347390038, guid: 6c74122ebe373204891f82491aff3e80, type: 3}
+  leftTurnHall: {fileID: 5894065007555527460, guid: 6c74122ebe373204891f82491aff3e80, type: 3}
+  rightTurnHall: {fileID: 5697796682347390038, guid: ed57608d092aeb248a92e4fde53ee6d4, type: 3}
   halls:
   - {fileID: 0}
   - {fileID: 0}
@@ -2174,7 +2174,7 @@ MonoBehaviour:
   obstacles:
   - {fileID: 7522549366145933727, guid: f706f9a1ade487149b9c2630555ab6c0, type: 3}
   - {fileID: 5278733066920880166, guid: b81ecd63aafeb6e44b1fea5db77b6b96, type: 3}
-  - {fileID: 6157478335929600054, guid: 0ef153ad8ee693f4dbe8c1a76f97624f, type: 3}
+  - {fileID: 491356489883444661, guid: e4c098742c795bb4ebaa3b7e6b6ae5ac, type: 3}
   - {fileID: 5310875570247336018, guid: 467ab1217e819ed48a8d32df2b0a8a10, type: 3}
   - {fileID: 5310875570247336018, guid: 7ca09aabba0afd7478217f9ad47f5673, type: 3}
   hallTypes: 
