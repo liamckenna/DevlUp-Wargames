@@ -7,6 +7,8 @@ TagManager:
   - Geometry
   - Manager
   - Health
+  - Scientist
+  - Scientist Director
   layers:
   - Default
   - TransparentFX

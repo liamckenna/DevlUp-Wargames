@@ -262,7 +262,7 @@ public class playerMovement : MonoBehaviour
     
 
     void OnTriggerEnter(Collider other) {
-        Debug.Log("Trigger: " + other.tag);
+        //Debug.Log("Trigger: " + other.tag);
         if (other.gameObject.tag == "Stairs") {
             onStairs = true;
         }

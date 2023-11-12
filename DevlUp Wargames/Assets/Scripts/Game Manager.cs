@@ -12,7 +12,9 @@ public class GameManager : MonoBehaviour
 
     public int stage = 1;
     public int hallNumber = 1;
+    public int scientistHallNumber = 0;
     [SerializeField] GameObject player;
+    [SerializeField] GameObject scientists;
     [SerializeField] GameObject startingHall1;
     [SerializeField] GameObject startingHall2;
     [SerializeField] GameObject startingHall3;
@@ -208,7 +210,11 @@ public class GameManager : MonoBehaviour
                 break;
         }
         halls[4].GetComponentInChildren<loadHallway>().gm = this;
+        if (hallTypes[4] == hallType.RightTurn || hallTypes[4] == hallType.LeftTurn) {
+            halls[4].GetComponentInChildren<ScientistDirector>().gm = this;
+        }
         GenerateObstacles();
+        ScientistUpdate();
     }
 
     public void GenerateObstacles() {
@@ -367,9 +373,59 @@ public class GameManager : MonoBehaviour
         pm.walkSpeed += 2;
         pm.sprintSpeed += 2;
         pm.crouchSpeed += 2;
+        scientists.GetComponent<ScientistBehavior>().speed += 25;
     }
 
     public void EndGame() {
         UnityEngine.Debug.Log("End Game");
+    }
+
+    public void ScientistUpdate() {
+        UnityEngine.Debug.Log("Scientist Hall Number: " + scientistHallNumber + ", Hall Number: " + hallNumber);
+        if (scientistHallNumber <= hallNumber - 1) {
+            scientistHallNumber = hallNumber;
+            if (hallTypes[0] == hallType.LeftTurn && halls[0].GetComponentInChildren<ScientistDirector>() != null) {
+                UnityEngine.Debug.Log("Calling From Update");
+                TurnScientists(true, false, scientists.GetComponent<ScientistBehavior>());
+            } else if (hallTypes[0] == hallType.RightTurn && halls[0].GetComponentInChildren<ScientistDirector>() != null) {
+                UnityEngine.Debug.Log("Calling From Update");
+                TurnScientists(false, true, scientists.GetComponent<ScientistBehavior>());
+            }
+            scientists.transform.position = new Vector3(halls[1].transform.position.x, scientists.transform.position.y, halls[1].transform.position.z);
+        }
+    }
+
+    public void TurnScientists(bool left, bool right, ScientistBehavior sb) {
+        if (left) {
+            if (sb.scientistDirection == ScientistBehavior.direction.North) {
+                sb.scientistDirection = ScientistBehavior.direction.West;
+                sb.gameObject.transform.rotation = Quaternion.Euler(sb.gameObject.transform.rotation.x, 270, sb.gameObject.transform.rotation.z);
+            } else if (sb.scientistDirection == ScientistBehavior.direction.West) {
+                sb.scientistDirection = ScientistBehavior.direction.South;
+                sb.gameObject.transform.rotation = Quaternion.Euler(sb.gameObject.transform.rotation.x, 180, sb.gameObject.transform.rotation.z);
+            } else if (sb.scientistDirection == ScientistBehavior.direction.South) {
+                sb.scientistDirection = ScientistBehavior.direction.East;
+                sb.gameObject.transform.rotation = Quaternion.Euler(sb.gameObject.transform.rotation.x, 90, sb.gameObject.transform.rotation.z);
+            } else if (sb.scientistDirection == ScientistBehavior.direction.East) {
+                sb.scientistDirection = ScientistBehavior.direction.North;
+                sb.gameObject.transform.rotation = Quaternion.Euler(sb.gameObject.transform.rotation.x, 0, sb.gameObject.transform.rotation.z);
+            }
+            UnityEngine.Debug.Log("Turning Left, new Scientist direction is: " + sb.scientistDirection);
+        } else if (right) {
+            if (sb.scientistDirection == ScientistBehavior.direction.North) {
+                sb.scientistDirection = ScientistBehavior.direction.East;
+                sb.gameObject.transform.rotation = Quaternion.Euler(sb.gameObject.transform.rotation.x, 90, sb.gameObject.transform.rotation.z);
+            } else if (sb.scientistDirection == ScientistBehavior.direction.East) {
+                sb.scientistDirection = ScientistBehavior.direction.South;
+                sb.gameObject.transform.rotation = Quaternion.Euler(sb.gameObject.transform.rotation.x, 180, sb.gameObject.transform.rotation.z);
+            } else if (sb.scientistDirection == ScientistBehavior.direction.South) {
+                sb.scientistDirection = ScientistBehavior.direction.West;
+                sb.gameObject.transform.rotation = Quaternion.Euler(sb.gameObject.transform.rotation.x, 270, sb.gameObject.transform.rotation.z);
+            } else if (sb.scientistDirection == ScientistBehavior.direction.West) {
+                sb.scientistDirection = ScientistBehavior.direction.North;
+                sb.gameObject.transform.rotation = Quaternion.Euler(sb.gameObject.transform.rotation.x, 0, sb.gameObject.transform.rotation.z);
+            }
+            UnityEngine.Debug.Log("Turning Right, new Scientist direction is: " + sb.scientistDirection);
+        }
     }
 }

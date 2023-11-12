@@ -34,7 +34,7 @@ public class playerHealth : MonoBehaviour
         yield return new WaitForSeconds(poisonRate);
         if (health > 0) {
             health--;
-            Debug.Log("Health: " + health);
+            //Debug.Log("Health: " + health);
             StartCoroutine(DecreaseHealth());
         }
         
