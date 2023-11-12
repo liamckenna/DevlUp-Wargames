@@ -1,3 +1,2 @@
 # DevlUp-Wargames
-Eric Bratu and Liam Mckenna's game repo for the DevLUp Wargames game jam of 2023
-
+game repo for the devlup wargames game jam of 2023
