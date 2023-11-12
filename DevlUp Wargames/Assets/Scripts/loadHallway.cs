@@ -20,7 +20,11 @@ public class loadHallway : MonoBehaviour
     }
 
     void OnTriggerEnter(Collider other) {
-        gm.GenerateNewHall();
+        if (transform.parent.gameObject == gm.halls[0] || transform.parent.gameObject == gm.halls[1]) {
+            Debug.Log("Skipping...");
+        } else {
+            gm.GenerateNewHall();
+        }
         Destroy(this.gameObject);
     }
 }
