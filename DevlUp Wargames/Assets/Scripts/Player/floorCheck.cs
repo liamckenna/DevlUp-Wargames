@@ -6,19 +6,19 @@ public class floorCheck : MonoBehaviour
 {
     public playerMovement pm;
 
-    void OnTriggerEnter(Collider other) {
+    public void OnTriggerEnter(Collider other) {
         if (other.gameObject.tag == "Geometry") {
             pm.grounded = true;
         }
     }
 
-    void OnTriggerStay(Collider other) {
+    public void OnTriggerStay(Collider other) {
         if (other.gameObject.tag == "Geometry") {
             pm.grounded = true;          
         }
     }
 
-    void OnTriggerExit(Collider other) {
+    public void OnTriggerExit(Collider other) {
         if (other.gameObject.tag == "Geometry") {
             pm.grounded = false;
             //Debug.Log("Exit");

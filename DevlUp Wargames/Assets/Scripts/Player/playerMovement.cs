@@ -262,9 +262,15 @@ public class playerMovement : MonoBehaviour
     
 
     void OnTriggerEnter(Collider other) {
+        Debug.Log("Trigger: " + other.tag);
         if (other.gameObject.tag == "Stairs") {
             onStairs = true;
         }
+        if (other.gameObject.tag == "Health") {
+            transform.GetComponent<playerHealth>().RestoreHealth();
+            Destroy(other.gameObject.transform.parent.gameObject);
+        }
+
     }
     void OnTriggerStay(Collider other) {
         if (other.gameObject.tag == "Stairs" && transform.position.y - transform.localScale.y < other.transform.position.y + other.transform.localScale.y/2) {

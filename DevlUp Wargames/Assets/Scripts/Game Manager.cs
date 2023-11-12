@@ -11,7 +11,8 @@ public class GameManager : MonoBehaviour
 {
 
     public int stage = 1;
-
+    public int hallNumber = 1;
+    [SerializeField] GameObject player;
     [SerializeField] GameObject startingHall1;
     [SerializeField] GameObject startingHall2;
     [SerializeField] GameObject startingHall3;
@@ -20,11 +21,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject straightHall;
     [SerializeField] GameObject leftTurnHall;
     [SerializeField] GameObject rightTurnHall;
-    [SerializeField] GameObject healthPickup;
+    public List<GameObject> healthPickups;
     public List<GameObject> halls;
     public List<GameObject> obstacles;
     public List<hallType> hallTypes;
     public direction currentDirection = direction.North;
+    playerMovement pm;
+    playerHealth ph;
     public enum hallType {
         Straight = 0,
         LeftTurn = 1,
@@ -39,6 +42,10 @@ public class GameManager : MonoBehaviour
     
     void Start()
     {
+        pm = player.GetComponent<playerMovement>();
+        ph = player.GetComponent<playerHealth>();
+        hallNumber = 1;
+        stage = 1;
         halls = new List<GameObject>(5);
         halls.Add(startingHall1);
         halls.Add(startingHall2);
@@ -61,13 +68,17 @@ public class GameManager : MonoBehaviour
 
     public void GenerateNewHall() {
         Destroy(halls[0]);
+        hallNumber++;
+        if (hallNumber%5 == 0) {
+            IncreaseStage();
+        }
         for (int i = 0; i < 4; i++) {
             halls[i] = halls[i+1];
             hallTypes[i] = hallTypes[i+1];
         }
         int hallID = UnityEngine.Random.Range(0, 3);
         switch(hallID) {
-            case 0: 
+            case 0:
                 //Generate straight hall
                 hallTypes[4] = hallType.Straight;
                 UnityEngine.Debug.Log("Generating Straight Hall");
@@ -204,7 +215,7 @@ public class GameManager : MonoBehaviour
 
         for (int i = 0; i < 4; i++) {
             int obstacleCheck = UnityEngine.Random.Range(0,2);
-            if (obstacleCheck == 1) {
+            if (obstacleCheck > 0) {
                 int obstacleID = UnityEngine.Random.Range(0,4);
                 if (obstacleID == 3) {
                     int cabinetID = UnityEngine.Random.Range(0,2);
@@ -214,7 +225,7 @@ public class GameManager : MonoBehaviour
                         obstacleID = 4;
                     }
                 }
-                    if (hallTypes[4] == hallType.Straight) {
+                if (hallTypes[4] == hallType.Straight) {
                         if (currentDirection == direction.North) {
                             Instantiate(obstacles[obstacleID], new Vector3(halls[4].transform.position.x + (i * 8), halls[4].transform.position.y, halls[4].transform.position.z), Quaternion.Euler(halls[4].transform.rotation.x,halls[4].transform.rotation.y,halls[4].transform.rotation.z), halls[4].transform);
                         } else if (currentDirection == direction.East) {
@@ -280,71 +291,85 @@ public class GameManager : MonoBehaviour
             } else {
                 int healthCheck = UnityEngine.Random.Range(0,4);
                 if (healthCheck == 0) {
+                    int healthPickupID = UnityEngine.Random.Range(0,3);
                     if (hallTypes[4] == hallType.Straight) {
                         if (currentDirection == direction.North) {
-                            Instantiate(healthPickup, new Vector3(halls[4].transform.position.x + (i * 8), halls[4].transform.position.y, halls[4].transform.position.z), Quaternion.Euler(halls[4].transform.rotation.x,halls[4].transform.rotation.y,halls[4].transform.rotation.z), halls[4].transform);
+                            Instantiate(healthPickups[healthPickupID], new Vector3(halls[4].transform.position.x + (i * 8), halls[4].transform.position.y, halls[4].transform.position.z), Quaternion.Euler(halls[4].transform.rotation.x,halls[4].transform.rotation.y,halls[4].transform.rotation.z), halls[4].transform);
                         } else if (currentDirection == direction.East) {
-                            Instantiate(healthPickup, new Vector3(halls[4].transform.position.x, halls[4].transform.position.y, halls[4].transform.position.z - (i * 8)), Quaternion.Euler(halls[4].transform.rotation.x,halls[4].transform.rotation.y + 90,halls[4].transform.rotation.z), halls[4].transform);
+                            Instantiate(healthPickups[healthPickupID], new Vector3(halls[4].transform.position.x, halls[4].transform.position.y, halls[4].transform.position.z - (i * 8)), Quaternion.Euler(halls[4].transform.rotation.x,halls[4].transform.rotation.y + 90,halls[4].transform.rotation.z), halls[4].transform);
                         } else if (currentDirection == direction.South) {
-                            Instantiate(healthPickup, new Vector3(halls[4].transform.position.x - (i * 8), halls[4].transform.position.y, halls[4].transform.position.z), Quaternion.Euler(halls[4].transform.rotation.x,halls[4].transform.rotation.y + 180,halls[4].transform.rotation.z), halls[4].transform);
+                            Instantiate(healthPickups[healthPickupID], new Vector3(halls[4].transform.position.x - (i * 8), halls[4].transform.position.y, halls[4].transform.position.z), Quaternion.Euler(halls[4].transform.rotation.x,halls[4].transform.rotation.y + 180,halls[4].transform.rotation.z), halls[4].transform);
                         } else if (currentDirection == direction.West) {
-                            Instantiate(healthPickup, new Vector3(halls[4].transform.position.x, halls[4].transform.position.y, halls[4].transform.position.z + (i * 8)), Quaternion.Euler(halls[4].transform.rotation.x,halls[4].transform.rotation.y + 270,halls[4].transform.rotation.z), halls[4].transform);
+                            Instantiate(healthPickups[healthPickupID], new Vector3(halls[4].transform.position.x, halls[4].transform.position.y, halls[4].transform.position.z + (i * 8)), Quaternion.Euler(halls[4].transform.rotation.x,halls[4].transform.rotation.y + 270,halls[4].transform.rotation.z), halls[4].transform);
                         }
                     } else if (hallTypes[4] == hallType.LeftTurn) {
                         if (currentDirection == direction.North) {
                             if (i < 2) {
-                                Instantiate(healthPickup, new Vector3(halls[4].transform.position.x, halls[4].transform.position.y, halls[4].transform.position.z - (i * 8)), Quaternion.Euler(halls[4].transform.rotation.x,halls[4].transform.rotation.y + 90,halls[4].transform.rotation.z), halls[4].transform);
+                                Instantiate(healthPickups[healthPickupID], new Vector3(halls[4].transform.position.x, halls[4].transform.position.y, halls[4].transform.position.z - (i * 8)), Quaternion.Euler(halls[4].transform.rotation.x,halls[4].transform.rotation.y + 90,halls[4].transform.rotation.z), halls[4].transform);
                             } else if (i >= 2) {
-                                Instantiate(healthPickup, new Vector3(halls[4].transform.position.x + ((i - 1) * 8), halls[4].transform.position.y, halls[4].transform.position.z - 16), Quaternion.Euler(halls[4].transform.rotation.x,halls[4].transform.rotation.y,halls[4].transform.rotation.z), halls[4].transform);
+                                Instantiate(healthPickups[healthPickupID], new Vector3(halls[4].transform.position.x + ((i - 1) * 8), halls[4].transform.position.y, halls[4].transform.position.z - 16), Quaternion.Euler(halls[4].transform.rotation.x,halls[4].transform.rotation.y,halls[4].transform.rotation.z), halls[4].transform);
                             }
                         } else if (currentDirection == direction.East) {
                             if (i < 2) {
-                                Instantiate(healthPickup, new Vector3(halls[4].transform.position.x - (i * 8), halls[4].transform.position.y, halls[4].transform.position.z), Quaternion.Euler(halls[4].transform.rotation.x,halls[4].transform.rotation.y + 180,halls[4].transform.rotation.z), halls[4].transform);
+                                Instantiate(healthPickups[healthPickupID], new Vector3(halls[4].transform.position.x - (i * 8), halls[4].transform.position.y, halls[4].transform.position.z), Quaternion.Euler(halls[4].transform.rotation.x,halls[4].transform.rotation.y + 180,halls[4].transform.rotation.z), halls[4].transform);
                             } else if (i >= 2) {
-                                Instantiate(healthPickup, new Vector3(halls[4].transform.position.x - 16, halls[4].transform.position.y, halls[4].transform.position.z - ((i - 1) * 8)), Quaternion.Euler(halls[4].transform.rotation.x,halls[4].transform.rotation.y + 90,halls[4].transform.rotation.z), halls[4].transform);
+                                Instantiate(healthPickups[healthPickupID], new Vector3(halls[4].transform.position.x - 16, halls[4].transform.position.y, halls[4].transform.position.z - ((i - 1) * 8)), Quaternion.Euler(halls[4].transform.rotation.x,halls[4].transform.rotation.y + 90,halls[4].transform.rotation.z), halls[4].transform);
                             }
                         } else if (currentDirection == direction.South) {
                             if (i < 2) {
-                                Instantiate(healthPickup, new Vector3(halls[4].transform.position.x, halls[4].transform.position.y, halls[4].transform.position.z + (i * 8)), Quaternion.Euler(halls[4].transform.rotation.x,halls[4].transform.rotation.y + 270,halls[4].transform.rotation.z), halls[4].transform);
+                                Instantiate(healthPickups[healthPickupID], new Vector3(halls[4].transform.position.x, halls[4].transform.position.y, halls[4].transform.position.z + (i * 8)), Quaternion.Euler(halls[4].transform.rotation.x,halls[4].transform.rotation.y + 270,halls[4].transform.rotation.z), halls[4].transform);
                             } else if (i >= 2) {
-                                Instantiate(healthPickup, new Vector3(halls[4].transform.position.x - ((i - 1) * 8), halls[4].transform.position.y, halls[4].transform.position.z + 16), Quaternion.Euler(halls[4].transform.rotation.x,halls[4].transform.rotation.y + 180,halls[4].transform.rotation.z), halls[4].transform);
+                                Instantiate(healthPickups[healthPickupID], new Vector3(halls[4].transform.position.x - ((i - 1) * 8), halls[4].transform.position.y, halls[4].transform.position.z + 16), Quaternion.Euler(halls[4].transform.rotation.x,halls[4].transform.rotation.y + 180,halls[4].transform.rotation.z), halls[4].transform);
                             }
                         } else if (currentDirection == direction.West) {
                             if (i < 2) {
-                                Instantiate(healthPickup, new Vector3(halls[4].transform.position.x + (i * 8), halls[4].transform.position.y, halls[4].transform.position.z), Quaternion.Euler(halls[4].transform.rotation.x,halls[4].transform.rotation.y,halls[4].transform.rotation.z), halls[4].transform);
+                                Instantiate(healthPickups[healthPickupID], new Vector3(halls[4].transform.position.x + (i * 8), halls[4].transform.position.y, halls[4].transform.position.z), Quaternion.Euler(halls[4].transform.rotation.x,halls[4].transform.rotation.y,halls[4].transform.rotation.z), halls[4].transform);
                             } else if (i >= 2) {
-                                Instantiate(healthPickup, new Vector3(halls[4].transform.position.x + 16, halls[4].transform.position.y, halls[4].transform.position.z + ((i - 1) * 8)), Quaternion.Euler(halls[4].transform.rotation.x,halls[4].transform.rotation.y + 270,halls[4].transform.rotation.z), halls[4].transform);
+                                Instantiate(healthPickups[healthPickupID], new Vector3(halls[4].transform.position.x + 16, halls[4].transform.position.y, halls[4].transform.position.z + ((i - 1) * 8)), Quaternion.Euler(halls[4].transform.rotation.x,halls[4].transform.rotation.y + 270,halls[4].transform.rotation.z), halls[4].transform);
                             }
                         }
                     } else if (hallTypes[4] == hallType.RightTurn) {
                         if (currentDirection == direction.North) {
                             if (i < 2) {
-                                Instantiate(healthPickup, new Vector3(halls[4].transform.position.x, halls[4].transform.position.y, halls[4].transform.position.z + (i * 8)), Quaternion.Euler(halls[4].transform.rotation.x,halls[4].transform.rotation.y + 270,halls[4].transform.rotation.z), halls[4].transform);
+                                Instantiate(healthPickups[healthPickupID], new Vector3(halls[4].transform.position.x, halls[4].transform.position.y, halls[4].transform.position.z + (i * 8)), Quaternion.Euler(halls[4].transform.rotation.x,halls[4].transform.rotation.y + 270,halls[4].transform.rotation.z), halls[4].transform);
                             } else if (i >= 2) {
-                                Instantiate(healthPickup, new Vector3(halls[4].transform.position.x + ((i - 1) * 8), halls[4].transform.position.y, halls[4].transform.position.z + 16), Quaternion.Euler(halls[4].transform.rotation.x,halls[4].transform.rotation.y,halls[4].transform.rotation.z), halls[4].transform);
+                                Instantiate(healthPickups[healthPickupID], new Vector3(halls[4].transform.position.x + ((i - 1) * 8), halls[4].transform.position.y, halls[4].transform.position.z + 16), Quaternion.Euler(halls[4].transform.rotation.x,halls[4].transform.rotation.y,halls[4].transform.rotation.z), halls[4].transform);
                             }
                         } else if (currentDirection == direction.East) {
                             if (i < 2) {
-                                Instantiate(healthPickup, new Vector3(halls[4].transform.position.x + (i * 8), halls[4].transform.position.y, halls[4].transform.position.z), Quaternion.Euler(halls[4].transform.rotation.x,halls[4].transform.rotation.y,halls[4].transform.rotation.z), halls[4].transform);
+                                Instantiate(healthPickups[healthPickupID], new Vector3(halls[4].transform.position.x + (i * 8), halls[4].transform.position.y, halls[4].transform.position.z), Quaternion.Euler(halls[4].transform.rotation.x,halls[4].transform.rotation.y,halls[4].transform.rotation.z), halls[4].transform);
                             } else if (i >= 2) {
-                                Instantiate(healthPickup, new Vector3(halls[4].transform.position.x + 16, halls[4].transform.position.y, halls[4].transform.position.z - ((i - 1) * 8)), Quaternion.Euler(halls[4].transform.rotation.x,halls[4].transform.rotation.y + 90,halls[4].transform.rotation.z), halls[4].transform);
+                                Instantiate(healthPickups[healthPickupID], new Vector3(halls[4].transform.position.x + 16, halls[4].transform.position.y, halls[4].transform.position.z - ((i - 1) * 8)), Quaternion.Euler(halls[4].transform.rotation.x,halls[4].transform.rotation.y + 90,halls[4].transform.rotation.z), halls[4].transform);
                             }
                         } else if (currentDirection == direction.South) {
                             if (i < 2) {
-                                Instantiate(healthPickup, new Vector3(halls[4].transform.position.x, halls[4].transform.position.y, halls[4].transform.position.z - (i * 8)), Quaternion.Euler(halls[4].transform.rotation.x,halls[4].transform.rotation.y + 90,halls[4].transform.rotation.z), halls[4].transform);
+                                Instantiate(healthPickups[healthPickupID], new Vector3(halls[4].transform.position.x, halls[4].transform.position.y, halls[4].transform.position.z - (i * 8)), Quaternion.Euler(halls[4].transform.rotation.x,halls[4].transform.rotation.y + 90,halls[4].transform.rotation.z), halls[4].transform);
                             } else if (i >= 2) {
-                                Instantiate(healthPickup, new Vector3(halls[4].transform.position.x - ((i - 1) * 8), halls[4].transform.position.y, halls[4].transform.position.z - 16), Quaternion.Euler(halls[4].transform.rotation.x,halls[4].transform.rotation.y + 180,halls[4].transform.rotation.z), halls[4].transform);
+                                Instantiate(healthPickups[healthPickupID], new Vector3(halls[4].transform.position.x - ((i - 1) * 8), halls[4].transform.position.y, halls[4].transform.position.z - 16), Quaternion.Euler(halls[4].transform.rotation.x,halls[4].transform.rotation.y + 180,halls[4].transform.rotation.z), halls[4].transform);
                             }
                         } else if (currentDirection == direction.West) {
                             if (i < 2) {
-                                Instantiate(healthPickup, new Vector3(halls[4].transform.position.x - (i * 8), halls[4].transform.position.y, halls[4].transform.position.z), Quaternion.Euler(halls[4].transform.rotation.x,halls[4].transform.rotation.y + 180,halls[4].transform.rotation.z), halls[4].transform);
+                                Instantiate(healthPickups[healthPickupID], new Vector3(halls[4].transform.position.x - (i * 8), halls[4].transform.position.y, halls[4].transform.position.z), Quaternion.Euler(halls[4].transform.rotation.x,halls[4].transform.rotation.y + 180,halls[4].transform.rotation.z), halls[4].transform);
                             } else if (i >= 2) {
-                                Instantiate(healthPickup, new Vector3(halls[4].transform.position.x - 16, halls[4].transform.position.y, halls[4].transform.position.z + ((i - 1) * 8)), Quaternion.Euler(halls[4].transform.rotation.x,halls[4].transform.rotation.y + 270,halls[4].transform.rotation.z), halls[4].transform);
+                                Instantiate(healthPickups[healthPickupID], new Vector3(halls[4].transform.position.x - 16, halls[4].transform.position.y, halls[4].transform.position.z + ((i - 1) * 8)), Quaternion.Euler(halls[4].transform.rotation.x,halls[4].transform.rotation.y + 270,halls[4].transform.rotation.z), halls[4].transform);
                             }
                         }
                     }
                 }
             }
         }    
+    }
+
+    public void IncreaseStage() {
+        stage++;
+        UnityEngine.Debug.Log("Stage up: " + stage);
+        ph.poisonRate /= 1.5f;
+        pm.walkSpeed += 2;
+        pm.sprintSpeed += 2;
+        pm.crouchSpeed += 2;
+    }
+
+    public void EndGame() {
+        UnityEngine.Debug.Log("End Game");
     }
 }
