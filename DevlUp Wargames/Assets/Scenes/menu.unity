@@ -904,6 +904,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1035230460}
   - component: {fileID: 1035230459}
+  - component: {fileID: 1035230461}
   m_Layer: 0
   m_Name: bgmusic
   m_TagString: Untagged
@@ -921,7 +922,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 5d67f9b5c31508241af43ab81dbd2e58, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 04653c500a066694682de179151ccd2d, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -1022,6 +1023,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1035230461
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1035230458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7e86a54329cfcd4e95accf3744f6a26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &1150177635 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 694469586231803011, guid: bcba6cec55010f649b2a57277b4f2803, type: 3}
