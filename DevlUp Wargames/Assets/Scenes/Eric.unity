@@ -14,10 +14,10 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
-  m_Fog: 0
-  m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  m_Fog: 1
+  m_FogColor: {r: 0, g: 0, b: 0, a: 1}
   m_FogMode: 3
-  m_FogDensity: 0.01
+  m_FogDensity: 0.06
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
@@ -687,11 +687,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6157478335929600054, guid: 0ef153ad8ee693f4dbe8c1a76f97624f, type: 3}
       propertyPath: m_IsActive
+<<<<<<< HEAD
       value: 0
+=======
+      value: 1
+>>>>>>> 1001a4a00fda123bd92ac8df9c81c615fcc76dc4
       objectReference: {fileID: 0}
     - target: {fileID: 6789195407647773324, guid: 0ef153ad8ee693f4dbe8c1a76f97624f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 7.76
       objectReference: {fileID: 0}
     - target: {fileID: 6789195407647773324, guid: 0ef153ad8ee693f4dbe8c1a76f97624f, type: 3}
       propertyPath: m_LocalPosition.y
@@ -699,7 +703,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6789195407647773324, guid: 0ef153ad8ee693f4dbe8c1a76f97624f, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 1.77
       objectReference: {fileID: 0}
     - target: {fileID: 6789195407647773324, guid: 0ef153ad8ee693f4dbe8c1a76f97624f, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1271,7 +1275,11 @@ Transform:
   m_GameObject: {fileID: 715164048}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+<<<<<<< HEAD
   m_LocalPosition: {x: -2.64, y: 1, z: 0}
+=======
+  m_LocalPosition: {x: -3.1, y: 4.5, z: 0}
+>>>>>>> 1001a4a00fda123bd92ac8df9c81c615fcc76dc4
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1929,11 +1937,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7522549366145933727, guid: f706f9a1ade487149b9c2630555ab6c0, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8203917035700465712, guid: f706f9a1ade487149b9c2630555ab6c0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 15.21
       objectReference: {fileID: 0}
     - target: {fileID: 8203917035700465712, guid: f706f9a1ade487149b9c2630555ab6c0, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2149,7 +2157,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5310875570247336018, guid: 467ab1217e819ed48a8d32df2b0a8a10, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6252684722011867056, guid: 467ab1217e819ed48a8d32df2b0a8a10, type: 3}
       propertyPath: m_LocalPosition.x
