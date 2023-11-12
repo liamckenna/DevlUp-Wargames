@@ -21,4 +21,8 @@ public class mainmenubuttons : MonoBehaviour
         public void QuitButton(){
         Application.Quit();
     }
+
+        public void clickanywhereButton(){
+        SceneManager.LoadScene("menu");
+    }
 }
