@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
 {
 
     public bool gameOver = false;
-
+    public static int score;
     public int stage = 1;
     public int hallNumber = 1;
     public int scientistHallNumber = 0;
@@ -76,6 +76,7 @@ public class GameManager : MonoBehaviour
                 RestartGame();
             }
         }
+        score = hallNumber;
     }
 
     public void GenerateNewHall() {
