@@ -510,13 +510,15 @@ ParticleSystemRenderer:
   m_RenderAlignment: 0
   m_Pivot: {x: 0, y: 0, z: 0}
   m_Flip: {x: 0, y: 0, z: 0}
-  m_UseCustomVertexStreams: 0
   m_EnableGPUInstancing: 1
   m_ApplyActiveColorSpace: 1
   m_AllowRoll: 1
   m_FreeformStretching: 0
   m_RotateWithStretchDirection: 1
+  m_UseCustomVertexStreams: 0
   m_VertexStreams: 00010304
+  m_UseCustomTrailVertexStreams: 0
+  m_TrailVertexStreams: 00010304
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
   m_Mesh1: {fileID: 0}
   m_Mesh2: {fileID: 0}
@@ -6720,13 +6722,45 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2101766342}
     m_Modifications:
+    - target: {fileID: 2471950312120306711, guid: b81ecd63aafeb6e44b1fea5db77b6b96, type: 3}
+      propertyPath: m_Height
+      value: 8.662164
+      objectReference: {fileID: 0}
+    - target: {fileID: 2471950312120306711, guid: b81ecd63aafeb6e44b1fea5db77b6b96, type: 3}
+      propertyPath: m_Radius
+      value: 1.931867
+      objectReference: {fileID: 0}
+    - target: {fileID: 2471950312120306711, guid: b81ecd63aafeb6e44b1fea5db77b6b96, type: 3}
+      propertyPath: m_Center.y
+      value: 1.0016983
+      objectReference: {fileID: 0}
+    - target: {fileID: 2471950312120306711, guid: b81ecd63aafeb6e44b1fea5db77b6b96, type: 3}
+      propertyPath: m_Center.z
+      value: -0.6559118
+      objectReference: {fileID: 0}
+    - target: {fileID: 4566838721446062511, guid: b81ecd63aafeb6e44b1fea5db77b6b96, type: 3}
+      propertyPath: m_Height
+      value: 8.737076
+      objectReference: {fileID: 0}
+    - target: {fileID: 4566838721446062511, guid: b81ecd63aafeb6e44b1fea5db77b6b96, type: 3}
+      propertyPath: m_Radius
+      value: 1.939935
+      objectReference: {fileID: 0}
+    - target: {fileID: 4566838721446062511, guid: b81ecd63aafeb6e44b1fea5db77b6b96, type: 3}
+      propertyPath: m_Center.y
+      value: 1.0391539
+      objectReference: {fileID: 0}
+    - target: {fileID: 4566838721446062511, guid: b81ecd63aafeb6e44b1fea5db77b6b96, type: 3}
+      propertyPath: m_Center.z
+      value: -0.6639793
+      objectReference: {fileID: 0}
     - target: {fileID: 5278733066920880166, guid: b81ecd63aafeb6e44b1fea5db77b6b96, type: 3}
       propertyPath: m_Name
       value: Tanks
       objectReference: {fileID: 0}
     - target: {fileID: 5278733066920880166, guid: b81ecd63aafeb6e44b1fea5db77b6b96, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5851100814107164042, guid: b81ecd63aafeb6e44b1fea5db77b6b96, type: 3}
       propertyPath: m_LocalPosition.x
@@ -7191,8 +7225,8 @@ MonoBehaviour:
   startingHall4: {fileID: 1360671208}
   startingHall5: {fileID: 756168698}
   straightHall: {fileID: 3975166694384938399, guid: 6c527d212b8ec3a43beb124865f22919, type: 3}
-  leftTurnHall: {fileID: 5894065007555527460, guid: 6c74122ebe373204891f82491aff3e80, type: 3}
-  rightTurnHall: {fileID: 5697796682347390038, guid: ed57608d092aeb248a92e4fde53ee6d4, type: 3}
+  leftTurnHall: {fileID: 5894065007555527460, guid: ed57608d092aeb248a92e4fde53ee6d4, type: 3}
+  rightTurnHall: {fileID: 5697796682347390038, guid: 6c74122ebe373204891f82491aff3e80, type: 3}
   healthPickups:
   - {fileID: 856510483311599250, guid: e46419a29c3b11647a02b690ea1615e1, type: 3}
   - {fileID: 856510483311599250, guid: 13ad1fcb118359040a775e3539eba8be, type: 3}
