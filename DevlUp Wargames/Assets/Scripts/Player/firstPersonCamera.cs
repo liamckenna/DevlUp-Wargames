@@ -34,7 +34,7 @@ public class firstPersonCamera : MonoBehaviour
         xRotation = Mathf.Clamp(xRotation, -66, 90f);
 
         holder.rotation = Quaternion.Euler(xRotation, yRotation, 0);
-        Debug.Log(holder.rotation);
+        //Debug.Log(holder.rotation);
         orientation.rotation = Quaternion.Euler(0, yRotation, 0);
         
     }

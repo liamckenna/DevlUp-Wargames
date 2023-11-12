@@ -85,6 +85,7 @@ public class playerMovement : MonoBehaviour
         PlayerMove();
         VelocityLimiter();
         LedgeGrabCheck();
+        Gravity();
         //if (sliding && crouching) rb.AddForce(slideDirection * slideSpeed * 10f, ForceMode.Force);
         //slideSpeed -= slideDeceleration;
         
@@ -105,16 +106,13 @@ public class playerMovement : MonoBehaviour
         
         //jump
         if (Input.GetButtonDown("Jump") || buffering) {
-            
-            if (sliding) {
-            crouchBuffer = true;
-            buffering = true;
-            return;
-            } else if (grounded || LedgeGrabCheck()) {
+            if (grounded || LedgeGrabCheck()) {
                 if (!buffering && crouching) {
                     Crouch();
                 }
-                else Jump();
+                if (sliding) thrust *= 0.75f;
+                Jump();
+                thrust = defaultThrust;
             }
             else if (!buffering) StartCoroutine(JumpBuffer());
         }
@@ -127,8 +125,7 @@ public class playerMovement : MonoBehaviour
                     crouchBuffer = false;
                     if (!crouching) sprinting = true;
                 }
-            }
-            else if (sprinting && grounded && canSlide) {
+            } else if (sprinting && grounded && canSlide) {
                 Crouch();
                 StartCoroutine(Slide());
             } else crouchBuffer = true;
@@ -173,12 +170,12 @@ public class playerMovement : MonoBehaviour
     }
 
     private void Jump() {
-        if (LedgeGrabCheck() && !grounded && !phantomGrounded) {
-            thrust = 10 + 6*(0.5f - ledgeGrabHeight);
-        }
+        // if (LedgeGrabCheck() && !grounded && !phantomGrounded) {
+        //     thrust = -1f * (10 + 6*(0.5f - ledgeGrabHeight));
+        // }
         Debug.Log(thrust);
         rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
-        if (crouchBuffer) thrust *= 1.35f;
+        //if (crouchBuffer) thrust *= 1.35f;
         rb.AddForce(transform.up * thrust, ForceMode.Impulse);
         phantomGrounded = false;
         buffering = false;
@@ -196,8 +193,8 @@ public class playerMovement : MonoBehaviour
         rb.AddForce(slideDirection * slideSpeed, ForceMode.Force);
         sprinting = false;
         yield return new WaitForSeconds(maxSlideTime);
-        //sliding = false;
-        //StartCoroutine(SlideCooldown());
+        sliding = false;
+        StartCoroutine(SlideCooldown());
     }
     private IEnumerator SlideCooldown() {
         canSlide = false;
@@ -208,7 +205,7 @@ public class playerMovement : MonoBehaviour
         crouching = !crouching;
             if (crouching) {
                 transform.localScale = new Vector3(1, 0.5f, 1);
-                transform.position = new Vector3(transform.position.x, transform.position.y - 0.5f, transform.position.z);
+                transform.position = new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z);
                 camera.transform.parent.transform.position = new Vector3(camera.transform.parent.transform.position.x, camera.transform.parent.transform.position.y - .35f, camera.transform.parent.transform.position.z);
             }
             if (!crouching) {

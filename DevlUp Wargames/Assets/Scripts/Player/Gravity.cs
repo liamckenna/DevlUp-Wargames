@@ -16,7 +16,7 @@ public class Gravity : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        Grav();
+        
     }
     
 

@@ -21,7 +21,7 @@ public class floorCheck : MonoBehaviour
     void OnTriggerExit(Collider other) {
         if (other.gameObject.tag == "Geometry") {
             pm.grounded = false;
-            Debug.Log("Exit");
+            //Debug.Log("Exit");
         }
     }
 }
