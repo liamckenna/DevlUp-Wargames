@@ -216,13 +216,13 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < 4; i++) {
             int obstacleCheck = UnityEngine.Random.Range(0,2);
             if (obstacleCheck > 0) {
-                int obstacleID = UnityEngine.Random.Range(0,4);
-                if (obstacleID == 3) {
+                int obstacleID = UnityEngine.Random.Range(0,5);
+                if (obstacleID == 4) {
                     int cabinetID = UnityEngine.Random.Range(0,2);
                     if (cabinetID == 0) {
-                        obstacleID = 3;
-                    } else if (cabinetID == 1) {
                         obstacleID = 4;
+                    } else if (cabinetID == 1) {
+                        obstacleID = 5;
                     }
                 }
                 if (hallTypes[4] == hallType.Straight) {
