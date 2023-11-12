@@ -394,7 +394,7 @@ public class GameManager : MonoBehaviour
         pm.canMove = false;
         scientists.GetComponent<ScientistBehavior>().paused = true;
         fpc.canLook = false;
-        //Display Game over
+        fpc.StartCoroutine(fpc.DeathAnim());
     }
 
     public void RestartGame() {

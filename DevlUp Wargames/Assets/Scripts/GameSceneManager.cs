@@ -12,6 +12,12 @@ public class GameSceneManager : MonoBehaviour
         Cursor.visible = true;
     }
 
+    void Update() {
+        if (Input.GetKeyDown(KeyCode.F11)) {
+            Screen.fullScreen = !Screen.fullScreen;
+        }
+    }
+
     //This function should be called to other scripts so that way you have the transition working
     public void LoadScene(int SceneIndex)
     {

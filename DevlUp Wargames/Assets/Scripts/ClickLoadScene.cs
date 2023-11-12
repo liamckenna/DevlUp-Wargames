@@ -22,7 +22,7 @@ public class ClickLoadScene : MonoBehaviour
     {
         anim.Play();
         yield return new WaitForSeconds(1f); 
-        SceneManager.LoadScene(indexx);
+        SceneManager.LoadScene("Eric");
         Cursor.visible = false;
         yield return new WaitForSeconds(1f);    
                 

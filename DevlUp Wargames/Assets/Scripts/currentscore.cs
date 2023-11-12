@@ -6,7 +6,6 @@ using TMPro;
 
 public class currentscore : MonoBehaviour
 {
-    [SerializeField] GameManager gm;
     TMP_Text tmp;
     // Start is called before the first frame update
     void Start()
@@ -17,6 +16,6 @@ public class currentscore : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        tmp.text = "Hallways Passed: " + gm.score;
+        //tmp.text = "Hallways Passed: " + GameManager.score;
     }
 }
