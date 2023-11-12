@@ -7223,8 +7223,8 @@ MonoBehaviour:
   startingHall4: {fileID: 1360671208}
   startingHall5: {fileID: 756168698}
   straightHall: {fileID: 3975166694384938399, guid: 6c527d212b8ec3a43beb124865f22919, type: 3}
-  leftTurnHall: {fileID: 5894065007555527460, guid: 6c74122ebe373204891f82491aff3e80, type: 3}
-  rightTurnHall: {fileID: 5697796682347390038, guid: ed57608d092aeb248a92e4fde53ee6d4, type: 3}
+  leftTurnHall: {fileID: 5894065007555527460, guid: ed57608d092aeb248a92e4fde53ee6d4, type: 3}
+  rightTurnHall: {fileID: 5697796682347390038, guid: 6c74122ebe373204891f82491aff3e80, type: 3}
   healthPickups:
   - {fileID: 856510483311599250, guid: e46419a29c3b11647a02b690ea1615e1, type: 3}
   - {fileID: 856510483311599250, guid: 13ad1fcb118359040a775e3539eba8be, type: 3}
