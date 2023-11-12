@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject startingHall3;
     [SerializeField] GameObject startingHall4;
     [SerializeField] GameObject startingHall5;
+    [SerializeField] GameObject straightHall;
     public List<GameObject> halls;
     
     
