@@ -706,15 +706,15 @@ PrefabInstance:
       objectReference: {fileID: 979568964}
     - target: {fileID: 7488341163345885526, guid: 81b879943942cd649ab7e4ed32a1f919, type: 3}
       propertyPath: m_text
-      value: You Survived 15 Halls
+      value: You Survived 15 Hallways...
       objectReference: {fileID: 0}
     - target: {fileID: 8168648340356590396, guid: 81b879943942cd649ab7e4ed32a1f919, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 515.154
+      value: 456.86
       objectReference: {fileID: 0}
     - target: {fileID: 8168648340356590396, guid: 81b879943942cd649ab7e4ed32a1f919, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 54.9
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 8168648340356590396, guid: 81b879943942cd649ab7e4ed32a1f919, type: 3}
       propertyPath: m_AnchoredPosition.y
